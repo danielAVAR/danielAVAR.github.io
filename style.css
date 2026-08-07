@@ -1,0 +1,337 @@
+
+  :root{
+    --bg: #e5e5e3;
+    --card: #ffffff;
+    --ink: #0a0a0a;
+    --mono: #0a0a0a;
+    --muted: #9a9a97;
+    --square: #0a0a0a;
+    --accent: #0a0a0a;
+  }
+
+  *{ box-sizing: border-box; margin:0; padding:0; }
+
+  html{ scroll-behavior: smooth; }
+
+  body{
+    background: var(--bg);
+    color: var(--ink);
+    font-family: 'Inter', system-ui, sans-serif;
+    min-height: 100vh;
+    padding: 40px 24px 100px;
+  }
+
+  .wrap{ max-width: 1180px; margin: 0 auto; }
+
+  /* ---------- NAV ---------- */
+  .nav{
+    display:flex;
+    justify-content: space-between;
+    align-items:center;
+    padding: 4px 12px 28px;
+  }
+  .nav-name{
+    font-family:'JetBrains Mono', monospace;
+    font-weight:700;
+    letter-spacing: 0.02em;
+    font-size: 14px;
+  }
+  .nav-links{ display:flex; gap: 28px; list-style:none; }
+  .nav-links a{
+    font-family:'JetBrains Mono', monospace;
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--ink);
+    text-decoration:none;
+    border-bottom: 2px solid transparent;
+    padding-bottom: 2px;
+    transition: border-color .2s ease;
+  }
+  .nav-links a:hover, .nav-links a:focus-visible{ border-color: var(--ink); }
+
+  /* ---------- HERO CARD (slide-style) ---------- */
+  .card{
+    background: var(--card);
+    border-radius: 4px;
+    position: relative;
+    padding: 56px 56px 64px;
+    overflow: hidden;
+  }
+  .page-index{
+    position:absolute;
+    top: 22px;
+    left: 26px;
+    font-family:'JetBrains Mono', monospace;
+    font-size: 13px;
+    color: var(--muted);
+  }
+
+  .hero-grid{
+    display:grid;
+    grid-template-rows: 730px;
+    grid-template-columns: 1.1fr 0.9fr;
+    gap: 24px;
+    align-items:start;
+    margin-top: 28px;
+  }
+
+  h1.title{
+    font-family: 'Archivo Black', sans-serif;
+    font-size: clamp(52px, 7vw, 92px);
+    line-height: 0.92;
+    letter-spacing: -0.01em;
+    text-transform: uppercase;
+  }
+
+  .role{
+    font-family:'JetBrains Mono', monospace;
+    font-weight: 700;
+    font-size: 15px;
+    letter-spacing: 0.04em;
+    margin-top: 22px;
+    max-width: 34ch;
+  }
+
+  .blurb{
+    font-family:'Inter', sans-serif;
+    font-size: 15px;
+    color: #3a3a3a;
+    line-height: 1.55;
+    max-width: 42ch;
+    margin-top: 16px;
+  }
+
+  .glyph-row{
+    margin-top: 48px;
+    font-family:'JetBrains Mono', monospace;
+    font-weight: 700;
+    font-size: 22px;
+    letter-spacing: 0.02em;
+    word-break: break-all;
+  }
+
+  /* image / project stack */
+  .stack{
+    display:flex;
+    flex-direction:column;
+    gap: 34px;
+  }
+  .stack-row{
+    display:grid;
+    grid-template-columns: 176px 1fr;
+    align-items:center;
+    column-gap: 26px;
+  }
+  .square{
+    width: 176px;
+    height: 176px;
+    background: var(--square);
+    border-radius: 2px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    position:relative;
+    overflow:hidden;
+  }
+  .square span{
+    font-family:'JetBrains Mono', monospace;
+    color: #4a4a48;
+    font-size: 11px;
+    letter-spacing: 0.08em;
+  }
+  .glyphs{
+    font-family:'JetBrains Mono', monospace;
+    font-weight: 700;
+    font-size: 22px;
+    line-height: 1.15;
+  }
+
+  /* ---------- SECTION HEADERS ---------- */
+  .section{
+    margin-top: 90px;
+  }
+  .section-head{
+    display:flex;
+    align-items:baseline;
+    gap: 18px;
+    margin-bottom: 32px;
+  }
+  .section-num{
+    font-family:'JetBrains Mono', monospace;
+    color: var(--muted);
+    font-size: 13px;
+  }
+  .section-title{
+    font-family:'Archivo Black', sans-serif;
+    text-transform: uppercase;
+    font-size: clamp(28px, 4vw, 44px);
+    letter-spacing: -0.01em;
+  }
+
+  /* ---------- ABOUT ---------- */
+  .about-body{
+    max-width: 62ch;
+    font-size: 16px;
+    line-height: 1.7;
+    color: #2c2c2c;
+  }
+
+  /* ---------- PROJECTS ---------- */
+  .projects{
+    display:grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 22px;
+  }
+  .project-card{
+    background: var(--card);
+    border-radius: 4px;
+    padding: 22px;
+    display:flex;
+    flex-direction:column;
+    gap: 16px;
+    transition: transform .2s ease;
+  }
+  .project-card:hover{ transform: translateY(-4px); }
+  .project-thumb{
+    width:100%;
+    aspect-ratio: 1 / 1;
+    background: var(--square);
+  }
+  .project-name{
+    font-family:'JetBrains Mono', monospace;
+    font-weight: 700;
+    font-size: 14px;
+  }
+  .project-desc{
+    font-size: 13px;
+    color: #555;
+    line-height: 1.5;
+  }
+
+  /* ---------- GITHUB SECTION ---------- */
+  .github-card{
+    background: var(--ink);
+    color: #fff;
+    border-radius: 4px;
+    padding: 56px;
+    display:flex;
+    flex-wrap:wrap;
+    justify-content: space-between;
+    align-items:center;
+    gap: 32px;
+  }
+  .github-left{ max-width: 46ch; }
+  .github-eyebrow{
+    font-family:'JetBrains Mono', monospace;
+    color:#9a9a97;
+    font-size: 13px;
+    margin-bottom: 14px;
+  }
+  .github-title{
+    font-family: 'Archivo Black', sans-serif;
+    text-transform: uppercase;
+    font-size: clamp(28px, 4vw, 40px);
+    line-height: 1;
+  }
+  .github-desc{
+    margin-top: 14px;
+    font-size: 14px;
+    color: #c9c9c7;
+    line-height: 1.6;
+  }
+  .github-btn{
+    font-family:'JetBrains Mono', monospace;
+    font-weight:700;
+    font-size: 14px;
+    color: var(--ink);
+    background: #fff;
+    text-decoration:none;
+    padding: 16px 26px;
+    border-radius: 2px;
+    display:inline-flex;
+    align-items:center;
+    gap: 10px;
+    transition: transform .15s ease, background .2s ease;
+  }
+  .github-btn:hover{ background: #e5e5e3; transform: translateX(2px); }
+  .github-btn svg{ width:18px; height:18px; }
+
+  .repos{
+    margin-top: 44px;
+    display:grid;
+    grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+    gap: 14px;
+  }
+  .repo-card{
+    background: #171717;
+    border: 1px solid #2a2a2a;
+    border-radius: 3px;
+    padding: 18px 20px;
+  }
+  .repo-name{
+    font-family:'JetBrains Mono', monospace;
+    font-weight:700;
+    font-size: 14px;
+    color:#fff;
+    text-decoration:none;
+  }
+  .repo-name:hover{ text-decoration: underline; }
+  .repo-desc{
+    margin-top: 8px;
+    font-size: 12.5px;
+    color:#9a9a97;
+    line-height: 1.5;
+    min-height: 32px;
+  }
+  .repo-meta{
+    margin-top: 12px;
+    display:flex;
+    gap: 14px;
+    font-family:'JetBrains Mono', monospace;
+    font-size: 11px;
+    color:#7a7a78;
+  }
+  .repos-status{
+    font-family:'JetBrains Mono', monospace;
+    font-size: 13px;
+    color:#9a9a97;
+    margin-top: 44px;
+  }
+
+  /* ---------- CONTACT ---------- */
+  .contact-row{
+    display:flex;
+    flex-wrap:wrap;
+    gap: 16px;
+  }
+  .contact-link{
+    font-family:'JetBrains Mono', monospace;
+    font-weight: 700;
+    font-size: 14px;
+    color: var(--ink);
+    text-decoration:none;
+    padding: 14px 22px;
+    border: 2px solid var(--ink);
+    border-radius: 2px;
+    transition: background .2s ease, color .2s ease;
+  }
+  .contact-link:hover{ background: var(--ink); color:#fff; }
+
+  footer{
+    margin-top: 90px;
+    text-align:center;
+    font-family:'JetBrains Mono', monospace;
+    font-size: 12px;
+    color: var(--muted);
+  }
+
+  @media (max-width: 720px){
+    .hero-grid{ grid-template-columns: 1fr; }
+    .card{ padding: 36px 22px 44px; }
+    .stack-row{ grid-template-columns: 110px 1fr; column-gap:16px; }
+    .square{ width:110px; height:110px; }
+    .glyphs{ font-size:15px; }
+    .glyph-row{ font-size:15px; }
+    .github-card{ padding: 34px 24px; }
+    .nav{ flex-direction:column; align-items:flex-start; gap:14px; }
+  }
