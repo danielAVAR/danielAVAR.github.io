@@ -76,11 +76,24 @@
   }
 
   h1.title{
-    font-family: 'Archivo Black', sans-serif;
-    font-size: clamp(52px, 7vw, 92px);
+    font-family: 'Archivo ', sans-serif;
+    font-size: clamp(21px, 7vw, 2px);
     line-height: 0.92;
     letter-spacing: -0.01em;
     text-transform: uppercase;
+    letter-spacing: 2.9em;
+
+    transform: translateX(70px);
+
+  }
+
+  .title-2{
+    font-family: Arial Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif, Helvetica, sans-serif ;
+    font-size: clamp(241px, 7vw, 450px);
+    line-height: 0.92;
+    letter-spacing: -0.01em;
+    text-transform: uppercase;
+    letter-spacing: -0.2em
   }
 
   .role{
@@ -118,9 +131,9 @@
   }
   .stack-row{
     display:grid;
-    grid-template-columns: 176px 1fr;
+    grid-template-columns: 1760px 1fr;
     align-items:center;
-    column-gap: 26px;
+    column-gap: -306px;
   }
   .square{
     width: 176px;
@@ -132,6 +145,9 @@
     justify-content:center;
     position:relative;
     overflow:hidden;
+
+    transform: translateX(450px);
+
   }
   .square span{
     font-family:'JetBrains Mono', monospace;
@@ -169,12 +185,30 @@
   }
 
   /* ---------- ABOUT ---------- */
-  .about-body{
+  .about-body-1{
+    font-family: 'JetBrains Mono', monospace;
+    max-width: 62ch;
+    font-size: 26px;
+    line-height: 1.7;
+    color: #2b3233;
+  }
+
+
+    .about-body-2{
     max-width: 62ch;
     font-size: 16px;
     line-height: 1.7;
     color: #2c2c2c;
   }
+
+
+    .about-body-3{
+    max-width: 62ch;
+    font-size: 16px;
+    line-height: 1.7;
+    color: #2c2c2c;
+  }
+
 
   /* ---------- PROJECTS ---------- */
   .projects{
@@ -335,3 +369,75 @@
     .github-card{ padding: 34px 24px; }
     .nav{ flex-direction:column; align-items:flex-start; gap:14px; }
   }
+
+.button-link {
+  font-family: 'JetBrains Mono', monospace;
+  font-weight: 700;
+  font-size: 14px;
+  color: rgb(222, 248, 203);
+  text-decoration: none;
+  padding: 14px 22px;
+  border: 2px solid var(--ink);
+  border-radius: 2px;
+
+  display: inline-block;
+}
+
+/* Start the animation when hovering */
+.button-link:hover {
+  animation: colorLoop 5s infinite;
+}
+
+/* The animation itself */
+@keyframes colorLoop {
+  0% {
+    color: rgb(0, 255, 76);
+  }
+
+  25% {
+    color: rgb(0, 255, 179);
+  }
+
+  50% {
+    color: rgb(170, 218, 26);
+  }
+
+  75% {
+    color: rgb(102, 189, 3);
+  }
+
+  100% {
+    color: rgb(68, 255, 0);
+  }
+}
+
+
+
+.button-index {
+  display: inline-block;
+
+  font-family: 'JetBrains Mono', monospace;
+  font-weight: 700;
+  font-size: 14px;
+  color: white;
+  text-decoration: none;
+
+  padding: 14px 22px;
+  border: 2px solid var(--ink);
+  border-radius: 2px;
+
+  transition: transform 0.3s ease;
+}
+
+.button-index:hover {
+  transform: scale(1.2);
+}
+
+ul {
+  display: flex;
+  flex-wrap: wrap;      /* let items wrap to a new line if there's not enough space */
+  gap: 12px;            /* spacing between items */
+  list-style: none;     /* optional: removes the bullets */
+  padding: 0;
+  margin: 0;
+}
