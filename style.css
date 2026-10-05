@@ -1,0 +1,633 @@
+/* ============================================================
+   THEME / DESIGN TOKENS
+   Change colors, fonts, and the shared easing curve here.
+   ============================================================ */
+:root {
+  --paper: #fbf8f4;
+  --ink: #0a0a0a;
+  --grid: rgba(10, 10, 10, 0.09);
+  --mute: #5d5a55;
+  --out: cubic-bezier(0.23, 1, 0.32, 1);
+  --mono: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
+  --sans: "Helvetica Neue", Inter, Arial, system-ui, sans-serif;
+
+  box-sizing: border-box;
+  padding-top: env(safe-area-inset-top, 0px);
+  padding-bottom: env(safe-area-inset-bottom, 0px);
+}
+
+/* Dark theme colors follow the system preference unless light mode is forced. */
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --paper: #0b0b0b;
+    --ink: #f2efe9;
+    --grid: rgba(242, 239, 233, 0.08);
+    --mute: #9b978f;
+  }
+}
+
+/* Explicit dark theme override for pages that set data-theme="dark". */
+:root[data-theme="dark"] {
+  --paper: #0b0b0b;
+  --ink: #f2efe9;
+  --grid: rgba(242, 239, 233, 0.08);
+  --mute: #9b978f;
+}
+
+/* ============================================================
+   RESET / BASE / TYPOGRAPHY
+   ============================================================ */
+
+/* Smooth section links and leave room for the fixed top navigation. */
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: calc(60px + env(safe-area-inset-top, 0px));
+}
+
+/* Use predictable sizing and remove browser-default margins. */
+* {
+  box-sizing: border-box;
+  margin: 0;
+}
+
+/* Site-wide type, color, and graph-paper background. */
+body {
+  background: var(--paper);
+  color: var(--ink);
+  font: 16px/1.55 var(--sans);
+  -webkit-font-smoothing: antialiased;
+  background-image:
+    linear-gradient(var(--grid) 1px, transparent 1px),
+    linear-gradient(90deg, var(--grid) 1px, transparent 1px);
+  background-size: 28px 28px;
+}
+
+/* Shared link reset. */
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+/* Utility for uppercase labels and compact mono typography. */
+.mono {
+  font-family: var(--mono);
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+/* ============================================================
+   FIXED NAVIGATION / SCROLL INDICATOR
+   ============================================================ */
+
+/* Top navigation slides into view after the cover section. */
+.top {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 30;
+  display: flex;
+  justify-content: space-between;
+  padding: calc(14px + env(safe-area-inset-top, 0px)) 6vw 14px;
+  background: var(--paper);
+  border-bottom: 2px solid var(--ink);
+  font: 700 12px var(--mono);
+  letter-spacing: 0.14em;
+  transform: translateY(-110%);
+  transition: transform 0.25s var(--out);
+}
+
+/* JavaScript adds .on when the cover scroll reaches the navigation threshold. */
+.top.on {
+  transform: none;
+}
+
+.top nav {
+  display: flex;
+  gap: 22px;
+}
+
+@media (hover: hover) {
+  .top a:hover {
+    text-decoration: underline;
+    text-underline-offset: 4px;
+  }
+}
+
+/* Narrow fixed rail and moving dot show overall page scroll position. */
+.rail {
+  position: fixed;
+  right: 20px;
+  top: 0;
+  bottom: 0;
+  width: 22px;
+  background: var(--ink);
+  z-index: 25;
+}
+
+.rail i {
+  position: absolute;
+  left: 4px;
+  width: 14px;
+  height: 14px;
+  background: var(--paper);
+  top: 0;
+}
+
+/* ============================================================
+   HERO / COVER
+   ============================================================ */
+
+/* Tall scroll area keeps the dark stage sticky while the cover animation runs. */
+.cover {
+  height: 380vh;
+  position: relative;
+  display: flex;
+  justify-content: center;
+}
+
+/* Centered dark canvas; its overflow clips the video, title zoom, and exiting cards. */
+.stage {
+  position: sticky;
+  top: max(5vh, calc((100svh - 900px) / 2));
+  width: min(90vw, 1440px);
+  height: min(90vh, 900px);
+  height: min(90svh, 900px);
+  align-self: flex-start;
+  overflow: hidden;
+  background: #000000;
+}
+
+/* Video, fallback canvas, and masked paper overlay share the stage bounds. */
+.stage video,
+.stage canvas,
+.stage svg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.stage video,
+.stage canvas {
+  object-fit: cover;
+}
+
+/* SVG paper mask sits above the video and reveals the video through AVAR. */
+.stage svg {
+  z-index: 1;
+  pointer-events: none;
+}
+
+/* White end curtain grows from the bottom to cover the video near the end of the scroll. */
+.curtain {
+  position: absolute;
+  z-index: 2;
+  inset: 0;
+  background: #fff;
+  transform: scaleY(0);
+  transform-origin: bottom;
+  pointer-events: none;
+  will-change: transform;
+}
+
+/* Shared positioning and animation hint for cover labels. */
+.fade {
+  position: absolute;
+  z-index: 2;
+  will-change: opacity, transform;
+}
+
+/* DANIEL row above the large masked AVAR title. */
+.dn {
+  display: flex;
+  justify-content: space-between;
+  font: 800 clamp(14px, 1.6vw, 26px) var(--sans);
+  color: var(--ink);
+}
+
+/* Role list below the AVAR title. */
+.roles {
+  list-style: none;
+  font: 700 clamp(13px, 1.1vw, 17px)/2.3 var(--mono);
+  letter-spacing: 0.14em;
+  color: var(--ink);
+}
+
+/* Cover navigation cards slide right and are clipped by .stage during scroll. */
+.tiles {
+  position: absolute;
+  z-index: 3;
+  right: calc(20px + 22px + 36px);
+  top: 7vh;
+  bottom: 7vh;
+  width: clamp(120px, 14vw, 210px);
+  display: grid;
+  grid-template-rows: repeat(4, 1fr);
+  gap: 16px;
+}
+
+/* Individual ABOUT / WORK / GITHUB / DESIGN cards. */
+.tiles a {
+  display: grid;
+  place-items: center;
+  background: var(--ink);
+  color: var(--paper);
+  border-radius: 3px;
+  font: 700 14px var(--mono);
+  letter-spacing: 0.14em;
+  transition: transform 0.16s var(--out), opacity 0.16s ease;
+}
+
+.tiles a:active {
+  transform: scale(0.97);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .tiles a:hover {
+    transform: translateX(-6px);
+  }
+}
+
+/* Scroll hint in the lower left corner of the hero. */
+.hint {
+  position: absolute;
+  z-index: 2;
+  left: 8vw;
+  bottom: calc(24px + env(safe-area-inset-bottom, 0px));
+  font: 700 11px var(--mono);
+  letter-spacing: 0.2em;
+  color: var(--ink);
+}
+
+/* ============================================================
+   SHARED CONTENT / SECTION HEADINGS / REVEALS
+   ============================================================ */
+
+/* Shared section spacing and top divider. */
+section {
+  padding: clamp(80px, 12vw, 170px) calc(6vw + 50px) clamp(80px, 12vw, 170px) 6vw;
+  border-top: 2px solid var(--ink);
+}
+
+/* Numbered section label. */
+.eyebrow {
+  font: 700 12px var(--mono);
+  letter-spacing: 0.2em;
+  margin-bottom: 20px;
+}
+
+/* Large shared section title. */
+h2 {
+  font: 800 clamp(44px, 8vw, 128px)/0.9 var(--sans);
+  letter-spacing: -0.05em;
+  margin-bottom: 48px;
+}
+
+/* Content revealed when it enters the viewport; JavaScript adds .in once. */
+.rv {
+  opacity: 0;
+  transform: translateY(14px);
+  transition: opacity 0.5s var(--out), transform 0.5s var(--out);
+}
+
+.rv.in {
+  opacity: 1;
+  transform: none;
+}
+
+/* ============================================================
+   ABOUT
+   ============================================================ */
+
+/* Two-column intro and capability list. */
+.about {
+  display: grid;
+  grid-template-columns: 1.25fr 1fr;
+  gap: 6vw;
+  align-items: start;
+}
+
+/* Prominent lead paragraph in the about section. */
+.lead {
+  font: 600 clamp(22px, 2.6vw, 38px)/1.25 var(--sans);
+  letter-spacing: -0.02em;
+  max-width: 22em;
+}
+
+/* Supporting paragraph below the lead. */
+.sub {
+  color: var(--mute);
+  margin-top: 22px;
+  max-width: 34em;
+  font-size: clamp(16px, 1.4vw, 19px);
+}
+
+/* Numbered capability list with an interactive left inset. */
+.list {
+  list-style: none;
+  border-top: 2px solid var(--ink);
+  counter-reset: n;
+}
+
+.list li {
+  counter-increment: n;
+  display: flex;
+  gap: 18px;
+  padding: 12px 0;
+  border-bottom: 1px solid var(--ink);
+  font: 700 13px var(--mono);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  transition: padding-left 0.2s var(--out);
+}
+
+.list li::before {
+  content: counter(n, decimal-leading-zero);
+  color: var(--mute);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .list li:hover {
+    padding-left: 12px;
+  }
+}
+
+/* ============================================================
+   PROJECTS / HORIZONTAL SLIDER
+   ============================================================ */
+
+/* Horizontal snap track; controls are wired in the PROJECT SLIDER section of script.js. */
+.track {
+  display: flex;
+  gap: 20px;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  scrollbar-width: none;
+  margin-right: -6vw;
+}
+
+.track::-webkit-scrollbar {
+  display: none;
+}
+
+/* One project slide, dimmed until it becomes the active card. */
+.slide {
+  flex: 0 0 min(78vw, 920px);
+  scroll-snap-align: start;
+  border: 2px solid var(--ink);
+  border-radius: 3px;
+  background: var(--paper);
+  opacity: 0.4;
+  transition: opacity 0.25s var(--out);
+}
+
+.slide.on {
+  opacity: 1;
+}
+
+/* Project media frame and its placeholder texture. */
+.media {
+  aspect-ratio: 16/9;
+  position: relative;
+  display: grid;
+  place-items: center;
+  background: repeating-linear-gradient(45deg, transparent 0 12px, var(--grid) 12px 13px);
+  border-bottom: 2px solid var(--ink);
+  font: 700 12px var(--mono);
+  letter-spacing: 0.14em;
+  color: var(--mute);
+}
+
+.media video {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* Project title, summary, and action link row. */
+.meta {
+  padding: 18px 22px;
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+  align-items: flex-end;
+  flex-wrap: wrap;
+}
+
+.meta h3 {
+  font: 800 28px var(--sans);
+  letter-spacing: -0.03em;
+}
+
+.meta p {
+  color: var(--mute);
+  font-size: 15px;
+}
+
+/* Previous/next controls and active-slide counter. */
+.ctrl {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  margin-top: 26px;
+  font: 700 12px var(--mono);
+  letter-spacing: 0.14em;
+}
+
+.ctrl button {
+  width: 52px;
+  height: 52px;
+  border: 2px solid var(--ink);
+  background: var(--paper);
+  color: var(--ink);
+  border-radius: 3px;
+  font-size: 18px;
+  cursor: pointer;
+  transition: background 0.16s ease, color 0.16s ease, transform 0.16s var(--out);
+}
+
+@media (hover: hover) {
+  .ctrl button:hover {
+    background: var(--ink);
+    color: var(--paper);
+  }
+}
+
+.ctrl button:active {
+  transform: scale(0.95);
+}
+
+/* ============================================================
+   SKILLS
+   ============================================================ */
+
+/* Responsive grid of skill cards. */
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+  gap: 14px;
+}
+
+/* Skill icon and name card; .in triggers its reveal transition. */
+.sk {
+  border: 2px solid var(--ink);
+  border-radius: 3px;
+  padding: 24px 10px 16px;
+  text-align: center;
+  font: 700 11px var(--mono);
+  letter-spacing: 0.12em;
+  background: var(--paper);
+  transition:
+    background 0.2s var(--out),
+    color 0.2s var(--out),
+    transform 0.2s var(--out),
+    opacity 0.4s ease;
+  opacity: 0;
+}
+
+.sk.in {
+  opacity: 1;
+}
+
+.sk svg {
+  width: 46px;
+  height: 46px;
+  margin-bottom: 12px;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .sk.in:hover {
+    background: var(--ink);
+    color: var(--paper);
+    transform: translateY(-4px);
+  }
+}
+
+/* Dashed cards invite future skill entries. */
+.sk.ph {
+  border-style: dashed;
+  color: var(--mute);
+}
+
+/* ============================================================
+   GITHUB / CONTACT / FOOTER
+   ============================================================ */
+
+/* Flexible row for GitHub content and contact links. */
+.row {
+  display: flex;
+  gap: 16px;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.row p {
+  color: var(--mute);
+  max-width: 30em;
+}
+
+/* Shared outlined action link used for project, GitHub, and contact actions. */
+.pill {
+  border: 2px solid var(--ink);
+  border-radius: 3px;
+  padding: 8px 16px;
+  font: 700 12px var(--mono);
+  letter-spacing: 0.12em;
+  transition:
+    background 0.16s ease,
+    color 0.16s ease,
+    transform 0.16s var(--out);
+}
+
+@media (hover: hover) {
+  .pill:hover {
+    background: var(--ink);
+    color: var(--paper);
+  }
+}
+
+.pill:active {
+  transform: scale(0.97);
+}
+
+/* Closing footer row. */
+footer {
+  padding: 24px calc(6vw + 50px) calc(24px + env(safe-area-inset-bottom, 0px)) 6vw;
+  border-top: 2px solid var(--ink);
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  flex-wrap: wrap;
+  font: 700 11px var(--mono);
+  letter-spacing: 0.14em;
+  color: var(--mute);
+}
+
+/* ============================================================
+   RESPONSIVE LAYOUT
+   Change the breakpoint here to adjust small-screen behavior.
+   ============================================================ */
+@media (max-width: 760px) {
+  .tiles {
+    top: auto;
+    bottom: calc(52px + env(safe-area-inset-bottom, 0px));
+    left: 5vw;
+    right: calc(20px + 22px + 14px);
+    width: auto;
+    height: 76px;
+    grid-template-rows: none;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 8px;
+  }
+
+  .tiles a {
+    font-size: 10px;
+    letter-spacing: 0.06em;
+  }
+
+  .hint {
+    left: 5vw;
+  }
+
+  .rail {
+    width: 14px;
+    right: 8px;
+  }
+
+  .rail i {
+    width: 8px;
+    left: 3px;
+  }
+
+  .about {
+    grid-template-columns: 1fr;
+  }
+
+  .top nav {
+    gap: 12px;
+  }
+
+  .top nav a:nth-child(n + 4) {
+    display: none;
+  }
+
+  section,
+  footer {
+    padding-right: calc(5vw + 24px);
+  }
+}
+
+/* Respect the operating system's reduced-motion preference for scroll/reveal effects. */
+@media (prefers-reduced-motion: reduce) {
+  .rv {
+    transform: none;
+  }
+
+  html {
+    scroll-behavior: auto;
+  }
+}
