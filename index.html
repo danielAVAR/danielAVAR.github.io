@@ -1,73 +1,32 @@
-<!DOCTYPE html>
-<html lang="en">
+<!doctype html>
+<html lang="es">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<link rel="stylesheet" href="style.css">
-<title>Daniel Avar — Portfolio</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#173d32">
+  <meta name="description" content="Portfolio de Daniel Aguilar Rodríguez, desarrollador de software en Guatemala. Backend, APIs y experiencias digitales.">
+  <title>Daniel Aguilar Rodríguez — Desarrollador de software</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-<header class="top" id="top"><a href="#cover">DANIEL AVAR</a><nav><a href="#about">ABOUT</a><a href="#projects">WORK</a><a href="#skills">SKILLS</a><a href="#github">GITHUB</a><a href="#contact">CONTACT</a></nav></header>
-<div class="rail" aria-hidden="true"><i id="dot"></i></div>
-
-<div class="cover" id="cover">
- <div class="stage">
-  <!-- Your recorded ocean video: set data-src="media/ocean.mp4". Until then a scroll-driven wave canvas plays. -->
-  <video id="wave" muted playsinline preload="auto" data-src="videos/video2-scrub.mp4" aria-hidden="true"></video>
-  <canvas id="cv" aria-hidden="true"></canvas>
-  <svg id="paper" aria-hidden="true"><defs>
-   <pattern id="g" width="28" height="28" patternUnits="userSpaceOnUse"><path d="M28 0H0V28" fill="none" style="stroke:var(--grid)" stroke-width="1"/></pattern>
-   <mask id="m" maskUnits="userSpaceOnUse"><rect id="mr" x="0" y="0" fill="#fff"/><g id="zg"><text id="tx" fill="#000" style="font-weight:900;letter-spacing:-.07em;font-family:'Helvetica Neue',Arial Black,Arial,sans-serif">AVAR</text></g></mask></defs>
-   <g id="pg" mask="url(#m)"><rect id="pr" x="0" y="0" style="fill:var(--paper)"/><rect id="pr2" x="0" y="0" fill="url(#g)"/></g></svg>
-  <div class="curtain" id="curtain" aria-hidden="true"></div>
-  <h1 style="position:absolute;width:1px;height:1px;overflow:hidden">Daniel Avar — Fullstack Designer</h1>
-  <div class="fade dn" id="dn"><span>D</span><span>A</span><span>N</span><span>I</span><span>E</span><span>L</span></div>
-  <ul class="fade roles" id="roles"><li>FULLSTACK</li><li>DESIGNER</li><li>TEAMWORK</li><li>ARCHITECTURE</li><li>GIT/GITHUB</li><li>DEBUGGING</li><li>ABSTRACTION</li></ul>
-  <nav class="fade tiles" id="tiles"><a href="#about">ABOUT</a><a href="#projects">WORK</a><a href="#github">GITHUB</a><a href="https://danielavar.github.io/brige.html">DESIGN</a></nav>
-  <div class="fade hint" id="hint">SCROLL ↓</div>
- </div>
-</div>
-
-<section id="about">
- <div class="eyebrow">01 / ABOUT</div>
- <div class="about">
-  <div class="rv"><h2>About</h2>
-   <p class="lead">[One bold sentence: I build digital products end to end — from interface design through to shipped code.]</p>
-   <p class="sub">[Vision: design and functionality are equally essential. 2–3 sentences in your own words.]</p></div>
-  <ul class="list rv"><li>Design</li><li>Functionality</li><li>Storytelling</li><li>Craftsmanship</li><li>Brand Identity</li><li>Technology</li><li>Programming</li><li>Passion</li><li>User Experience</li><li>Creativity</li></ul>
- </div>
-</section>
-
-<section id="projects">
- <div class="eyebrow">02 / WORK</div>
- <h2 class="rv">Projects</h2>
- <div class="track" id="track" tabindex="0" aria-label="Project slider">
-  <!-- Set each video's data-src. Duplicate a .slide to add more. -->
-  <article class="slide on"><div class="media"><video muted loop playsinline preload="metadata" data-src=""></video><span>VIDEO 01 — DROP FILE HERE</span></div><div class="meta"><div><h3>Project Name</h3><p>[One line · Stack · Role]</p></div><a class="pill" href="#">VIEW ↗</a></div></article>
-  <article class="slide"><div class="media"><video muted loop playsinline preload="metadata" data-src=""></video><span>VIDEO 02 — DROP FILE HERE</span></div><div class="meta"><div><h3>Project Name</h3><p>[One line · Stack · Role]</p></div><a class="pill" href="#">VIEW ↗</a></div></article>
-  <article class="slide"><div class="media"><video muted loop playsinline preload="metadata" data-src=""></video><span>VIDEO 03 — DROP FILE HERE</span></div><div class="meta"><div><h3>Project Name</h3><p>[One line · Stack · Role]</p></div><a class="pill" href="#">VIEW ↗</a></div></article>
- </div>
- <div class="ctrl"><button id="prev" aria-label="Previous project">←</button><button id="next" aria-label="Next project">→</button><span id="ct">01 / 03</span></div>
-</section>
-
-<section id="skills">
- <div class="eyebrow">03 / SKILLS</div>
- <h2 class="rv">Toolbox</h2>
- <div class="grid" id="grid"></div>
-</section>
-
-<section id="github">
- <div class="eyebrow">04 / OPEN SOURCE</div>
- <div class="row"><div><h2 class="rv">GitHub</h2><p>Everything I ship lives on GitHub — side projects, experiments, contributions.</p></div><a class="pill" href="https://github.com/danielAVAR">@danielAVAR ↗</a></div>
-</section>
-
-<section id="contact">
- <div class="eyebrow">05 / CONTACT</div>
- <h2 class="rv">Let's talk.</h2>
- <div class="row" style="justify-content:flex-start"><a class="pill" href="mailto:you@example.com">EMAIL</a><a class="pill" href="https://github.com/danielAVAR">GITHUB</a><a class="pill" href="#">LINKEDIN</a></div>
-</section>
-<footer><span>© Daniel Avar</span><span>BUILT WITH PLAIN HTML &amp; CSS</span></footer>
-
-<script src="script.js" defer></script>
+  <div class="header-controls" aria-label="Preferencias">
+    <button class="language-toggle" id="language-toggle" type="button" aria-label="Switch language to English">EN</button>
+    <button class="theme-toggle" id="theme-toggle" type="button" aria-label="Activar modo noche"><span id="theme-icon" aria-hidden="true">☾</span></button>
+  </div>
+  <main>
+    <!-- Sequence viewport: the whole portfolio lives inside this scroll-driven scene. -->
+    <section class="sequence-stage" id="portfolio" aria-label="Portfolio Fibonacci de Daniel Aguilar">
+      <div class="sequence-screen">
+        <!-- The previous scene stays below while the next Fibonacci scene manifests. -->
+        <div class="scene-layer scene-layer--base" id="scene-base"></div>
+        <div class="scene-layer scene-layer--incoming" id="scene-incoming" aria-live="polite"></div>
+        <p class="scroll-hint" id="scroll-hint" aria-hidden="true"> :D <span>↓</span></p>
+      </div>
+    </section>
+  </main>
+  <script src="script.js"></script>
 </body>
 </html>
