@@ -262,13 +262,15 @@
 
   function setReveal(layer, progress) {
     var tiles = layer.querySelectorAll('.fib-tile');
-    var revealProgress = progress;
-    if (progress > 0.8) {
-      var resistancePhase = Math.min(1, (progress - 0.8) / 0.2);
-      revealProgress = 0.8 + 0.2 * resistancePhase * resistancePhase;
-    }
+    var lastPieceStart = 0.6;
     tiles.forEach(function (tile, index) {
-      var local = Math.max(0, Math.min(1, revealProgress * tiles.length - index));
+      var local;
+      if (index === tiles.length - 1) {
+        var lastPieceProgress = Math.max(0, Math.min(1, (progress - lastPieceStart) / (1 - lastPieceStart)));
+        local = Math.pow(lastPieceProgress, 1.12);
+      } else {
+        local = Math.max(0, Math.min(1, progress / lastPieceStart * (tiles.length - 1) - index));
+      }
       var inset = (1 - local) * 100;
       var direction = tile.dataset.direction;
       var clip = 'inset(0 ' + inset + '% 0 0)';
