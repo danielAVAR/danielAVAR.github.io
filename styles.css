@@ -391,6 +391,17 @@ a {
   line-height: 1.65;
 }
 
+.home-copy > p:not(.eyebrow),
+.profile-copy > p:not(.eyebrow),
+.experience-item > p:not(.meta),
+.projects-copy > p:not(.eyebrow),
+.project-card > span:not(.meta),
+.education-item > p:not(.meta),
+.education-item > span,
+.contact-copy > p:not(.eyebrow, .meta) {
+  text-align: justify;
+}
+
 .profile-copy .lead {
   max-width: 42ch;
   color: var(--ink) !important;
