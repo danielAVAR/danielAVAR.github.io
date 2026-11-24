@@ -158,6 +158,7 @@
   var lastBase = -1;
   var lastIncoming = -1;
   var framePending = false;
+  var sceneSpan = (window.innerHeight || 1) * 1.2;
 
   function split(rect, direction, depth, tiles) {
     if (depth > maxDepth || rect.w < minSize || rect.h < minSize) return;
@@ -261,8 +262,13 @@
 
   function setReveal(layer, progress) {
     var tiles = layer.querySelectorAll('.fib-tile');
+    var revealProgress = progress;
+    if (progress > 0.8) {
+      var resistancePhase = Math.min(1, (progress - 0.8) / 0.2);
+      revealProgress = 0.8 + 0.2 * resistancePhase * resistancePhase;
+    }
     tiles.forEach(function (tile, index) {
-      var local = Math.max(0, Math.min(1, progress * tiles.length - index));
+      var local = Math.max(0, Math.min(1, revealProgress * tiles.length - index));
       var inset = (1 - local) * 100;
       var direction = tile.dataset.direction;
       var clip = 'inset(0 ' + inset + '% 0 0)';
@@ -274,8 +280,7 @@
   }
 
   function updateSequence() {
-    var viewport = window.innerHeight || 1;
-    var progress = Math.max(0, Math.min(scenes.length - 1, window.scrollY / viewport));
+    var progress = Math.max(0, Math.min(scenes.length - 1, window.scrollY / sceneSpan));
     var baseIndex = Math.min(scenes.length - 1, Math.floor(progress));
     var incomingIndex = Math.min(scenes.length - 1, baseIndex + 1);
     var localProgress = progress - baseIndex;
@@ -363,9 +368,9 @@
     cancelIndexScroll();
 
     var start = window.scrollY;
-    var destination = sceneNumber * window.innerHeight;
+    var destination = sceneNumber * sceneSpan;
     var distance = destination - start;
-    var duration = Math.max(1200, Math.abs(distance / window.innerHeight) * 1200);
+    var duration = Math.max(1200, Math.abs(distance / sceneSpan) * 1200);
     var startedAt = 0;
 
     // Cubic ease-in-out keeps the transition readable at both ends of the scroll.
@@ -395,9 +400,10 @@
   function sizeSequence() {
     // Portrait screens put the largest Fibonacci rectangle across the full width.
     geometry = makeGeometry();
+    sceneSpan = (window.innerHeight || 1) * 1.2;
     lastBase = -1;
     lastIncoming = -1;
-    document.querySelector('.sequence-stage').style.height = (scenes.length * window.innerHeight) + 'px';
+    document.querySelector('.sequence-stage').style.height = (window.innerHeight + (scenes.length - 1) * sceneSpan) + 'px';
     updateSequence();
   }
 

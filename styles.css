@@ -70,6 +70,7 @@ body {
   --ink: #f0f4e9;
   --paper: #111a18;
   --muted-ink: rgba(240, 244, 233, 0.76);
+  --fib-tile-border: rgba(255, 255, 255, 0.78);
 }
 
 :root[data-theme="night"],
@@ -110,6 +111,10 @@ body {
 :root[data-theme="night"] .education-item,
 :root[data-theme="night"] .contact-details {
   border-color: rgba(240, 244, 233, 0.28);
+}
+
+:root[data-theme="night"] .contact-copy .contact-details {
+  border-color: rgba(245, 244, 237, 0.48);
 }
 
 :root[data-theme="night"] .index-link {
@@ -219,6 +224,15 @@ a {
   background: var(--tile-color);
   color: var(--ink);
   clip-path: inset(0);
+}
+
+.fib-tile::after {
+  position: absolute;
+  z-index: 3;
+  inset: 0;
+  border: 1px solid var(--fib-tile-border, transparent);
+  content: "";
+  pointer-events: none;
 }
 
 .scene-layer--incoming .fib-tile {
@@ -504,6 +518,12 @@ a {
   font-size: clamp(2.5rem, 6vw, 6.2rem);
 }
 
+.contact-copy {
+  --ink: #f5f4ed;
+  --muted-ink: rgba(245, 244, 237, 0.84);
+  color: var(--ink);
+}
+
 .contact-copy > p:not(.eyebrow, .meta) {
   max-width: 42ch;
   font-size: clamp(0.9rem, 1.35vw, 1.1rem);
@@ -513,8 +533,8 @@ a {
   display: inline-flex;
   margin-top: 1rem;
   padding: 0.85rem 1.2rem;
-  background: var(--ink);
-  color: var(--paper);
+  background: #173d32;
+  color: #fff;
   font-family: var(--mono);
   font-size: 0.72rem;
 }
@@ -528,6 +548,10 @@ a {
   border-top: 1px solid rgba(23, 33, 31, 0.24);
   font-family: var(--mono);
   font-size: 0.66rem;
+}
+
+.contact-copy .contact-details {
+  border-color: rgba(245, 244, 237, 0.48);
 }
 
 .contact-details a:hover {
